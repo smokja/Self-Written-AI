@@ -14,8 +14,8 @@ namespace ArtificialNeuralNetwork.Model
         }
         public static double Derivative(double input)
         {
-            double s = Process(input);
-            return s * (1 - s);
+         
+            return input * (1 - input);
         }
     }
 }
