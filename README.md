@@ -1,2 +1,2 @@
 # Self-Written-AI
-My first try at creating my own artificial neural network
+My first try at creating my own artificial neural network. I am not following any guide or something like that, I just learn and then try it myself. So this project definitely is not best practice, but it is here to give me a better understanding of how Neural Networks work in a Program, not just theoretically. Later on I will try and refactor everything to better standards, or even restart the project.
