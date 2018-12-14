@@ -10,38 +10,12 @@ namespace ArtificialNeuralNetwork
 {
     public class Program
     {
-        private static SimpleNeuralNetwork snn = new SimpleNeuralNetwork();
-       public static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            snn.RandomizeWeights(); // Should only be called 1 time for initial
-            var trainer = new Trainer();
-            trainer.Train(snn);
-            Init();
-        }
-        public static void Init()
-        {
-            snn.InputLayer[0].Value = 0;
-            snn.InputLayer[1].Value = 0;
-            var result = snn.CalculateResult().Value;
-            Console.WriteLine("--Result for 0,0 : "+result);
-            
-            snn.InputLayer[0].Value = 1;
-            snn.InputLayer[1].Value = 0;
-            result = snn.CalculateResult().Value;
-            Console.WriteLine("--Result for 1,0 : " + result);
-
-            snn.InputLayer[0].Value = 1;
-            snn.InputLayer[1].Value = 1;
-            result = snn.CalculateResult().Value;
-            Console.WriteLine("--Result for 1,1 : " + result);
-
-            var info = Console.ReadKey();
-            if (info.KeyChar == 'x')
-            {
-                return;
-            }
-
-            Init();
+            var network = new Model.ArtificialNeuralNetwork(2, 1, 0, new int[0]);
+            var output = network.FeedForward(new double[2] { 20.5, -20.5 });
+            output.ForEach(x => Console.WriteLine(x));
+            Console.ReadKey();
         }
     }
 }

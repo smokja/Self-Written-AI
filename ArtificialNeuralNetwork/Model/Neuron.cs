@@ -8,10 +8,11 @@ namespace ArtificialNeuralNetwork.Model
 {
     public class Neuron
     {
-        public double Bias { get; set; }
-        public double[] Weights { get; set; }
+        public List<double> Weights { get; set; }
         public double Value { get; set; }
-        public double ValueWithoutSigmoid { get; set; }
-    
+        public Neuron()
+        {
+            Weights = new List<double>();
+        }
     }
 }
