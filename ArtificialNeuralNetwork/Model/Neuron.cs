@@ -9,7 +9,18 @@ namespace ArtificialNeuralNetwork.Model
     public class Neuron
     {
         public List<double> Weights { get; set; }
-        public double Value { get; set; }
+        private double _value;
+        public double ActivationValue { 
+            get 
+            { 
+                return _value;
+            } 
+            set
+            {
+                _value = Sigmoid.Process(Bias + value);
+            } 
+        }
+        public double Bias { get;set; }
         public Neuron()
         {
             Weights = new List<double>();

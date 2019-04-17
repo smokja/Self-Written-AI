@@ -53,9 +53,10 @@ namespace ArtificialNeuralNetwork.Model
         {
             foreach (var neuron in layer)
             {
+                neuron.Bias = random.Next(-80, 80) / 10d;
                 for (int i = 0; i < weightCount; i++)
                 {
-                    neuron.Weights.Add(random.NextDouble());
+                    neuron.Weights.Add(random.Next(-80, 80) / 10);
                 }
             }
         }
@@ -68,7 +69,7 @@ namespace ArtificialNeuralNetwork.Model
             // calculate input activations
             for (int i = 0; i < input.Length; i++)
             {
-                InputLayer[i].Value = Sigmoid.Process(input[i]);
+               InputLayer[i].ActivationValue = input[i];
             }
 
             // calculate hidden layer activations
@@ -79,7 +80,7 @@ namespace ArtificialNeuralNetwork.Model
                 var previousLayer = HiddenLayers.ElementAtOrDefault(i - 1) ?? InputLayer;
                 for (int j = 0; j < HiddenLayers[i].Count; j++)
                 {
-                    HiddenLayers[i][j].Value = Sigmoid.Process(CalculateWeightedSum(previousLayer, j));
+                    HiddenLayers[i][j].ActivationValue = CalculateWeightedSum(previousLayer, j);
                 }
             }
 
@@ -88,11 +89,12 @@ namespace ArtificialNeuralNetwork.Model
             var lastLayer = HiddenLayers.LastOrDefault() ?? InputLayer;
             for (int i = 0; i < OutputLayer.Count; i++)
             {
-                OutputLayer[i].Value = Sigmoid.Process(CalculateWeightedSum(lastLayer, i));
+                var currentNeuron = OutputLayer[i];
+                OutputLayer[i].ActivationValue = CalculateWeightedSum(lastLayer, i);
             }
 
             // return only values of output layer
-            return OutputLayer.Select(x => x.Value).ToList();
+            return OutputLayer.Select(x => x.ActivationValue).ToList();
         }
         double CalculateWeightedSum(List<Neuron> lastLayer, int weightIndex)
         {
@@ -100,9 +102,8 @@ namespace ArtificialNeuralNetwork.Model
             foreach (var neuron in lastLayer)
             {
                 var weight = neuron.Weights[weightIndex];
-                weightedSum += weight * neuron.Value;
+                weightedSum += weight * neuron.ActivationValue;
             }
-
 
             return weightedSum;
         }
